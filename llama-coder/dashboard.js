@@ -14,7 +14,6 @@ const bookmarks = [
 const bookmarksContainer = document.getElementById("bookmarks-container");
 const searchTermInput = document.getElementById("search-term");
 const categoryFilter = document.getElementById("category-filter");
-const tagFilter = document.getElementById("tag-filter");
 
 // Popup Elements
 const popup = document.getElementById("popup");
@@ -86,6 +85,15 @@ function searchBookmarks(text) {
     return matchedBookmarks;
 }
 
+// Function to filter bookmarks by category
+function filterByCategory(filteredBookmarks) {
+    const selectedCategory = categoryFilter.value;
+    if (selectedCategory) {
+        return filteredBookmarks.filter(bookmark => bookmark.category === selectedCategory);
+    }
+    return filteredBookmarks;
+}
+
 // Event Listener for bookmark clicks to open the popup
 bookmarksContainer.addEventListener("click", (event) => {
     const bookmarkElement = event.target.closest(".bookmark");
@@ -98,8 +106,17 @@ bookmarksContainer.addEventListener("click", (event) => {
 
 // Real-time Search: Update the rendered bookmarks on every keystroke
 searchTermInput.addEventListener("input", () => {
-    const searchText = searchTermInput.value;  // Get the text from the input
-    const filteredBookmarks = searchBookmarks(searchText);  // Get matched bookmarks
+    let searchText = searchTermInput.value;  // Get the text from the input
+    let filteredBookmarks = searchBookmarks(searchText);  // Get matched bookmarks
+    filteredBookmarks = filterByCategory(filteredBookmarks);  // Apply category filter
+    renderBookmarks(filteredBookmarks);  // Render the matched bookmarks
+});
+
+// Category Filter: Update bookmarks based on selected category
+categoryFilter.addEventListener("change", () => {
+    let searchText = searchTermInput.value;  // Get the text from the input
+    let filteredBookmarks = searchBookmarks(searchText);  // Get matched bookmarks
+    filteredBookmarks = filterByCategory(filteredBookmarks);  // Apply category filter
     renderBookmarks(filteredBookmarks);  // Render the matched bookmarks
 });
 
