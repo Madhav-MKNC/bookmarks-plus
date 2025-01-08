@@ -57,7 +57,6 @@ function openPopup(bookmark) {
     }, 10); // Small delay to ensure popup is displayed first
 }
 
-
 // Close the popup when clicking outside the content
 popup.addEventListener("click", (event) => {
     if (event.target === popup) {
@@ -68,38 +67,6 @@ popup.addEventListener("click", (event) => {
         }, 300); // Match the duration of the fade-out transition (300ms)
     }
 });
-
-// Filter logic
-function filterBookmarks() {
-    const searchTerm = searchTermInput.value.toLowerCase();
-    const selectedCategory = categoryFilter.value;
-    const selectedTags = Array.from(tagFilter.selectedOptions).map(option => option.value);
-
-    const filteredBookmarks = bookmarks.filter((bookmark) => {
-        const matchesSearchTerm = bookmark.title.toLowerCase().includes(searchTerm);
-        const matchesCategory = selectedCategory ? bookmark.category === selectedCategory : true;
-        const matchesTags = selectedTags.length > 0 ? selectedTags.every(tag => bookmark.tags.includes(tag)) : true;
-        return matchesSearchTerm && matchesCategory && matchesTags;
-    });
-
-    renderBookmarks(filteredBookmarks);
-}
-
-// Event Listeners for search and filter
-searchTermInput.addEventListener("input", filterBookmarks);
-categoryFilter.addEventListener("change", filterBookmarks);
-tagFilter.addEventListener("change", filterBookmarks);
-
-// Event Listener for bookmark clicks to open the popup
-bookmarksContainer.addEventListener("click", (event) => {
-    const bookmarkElement = event.target.closest(".bookmark");
-    if (bookmarkElement) {
-        const bookmarkId = parseInt(bookmarkElement.getAttribute("data-id"));
-        const bookmark = bookmarks.find(b => b.id === bookmarkId);
-        openPopup(bookmark);
-    }
-});
-
 
 // Function to search each word in the input text in all bookmark fields
 function searchBookmarks(text) {
@@ -119,6 +86,22 @@ function searchBookmarks(text) {
     return matchedBookmarks;
 }
 
+// Event Listener for bookmark clicks to open the popup
+bookmarksContainer.addEventListener("click", (event) => {
+    const bookmarkElement = event.target.closest(".bookmark");
+    if (bookmarkElement) {
+        const bookmarkId = parseInt(bookmarkElement.getAttribute("data-id"));
+        const bookmark = bookmarks.find(b => b.id === bookmarkId);
+        openPopup(bookmark);
+    }
+});
+
+// Real-time Search: Update the rendered bookmarks on every keystroke
+searchTermInput.addEventListener("input", () => {
+    const searchText = searchTermInput.value;  // Get the text from the input
+    const filteredBookmarks = searchBookmarks(searchText);  // Get matched bookmarks
+    renderBookmarks(filteredBookmarks);  // Render the matched bookmarks
+});
 
 // Initial Render
 renderBookmarks(bookmarks);
