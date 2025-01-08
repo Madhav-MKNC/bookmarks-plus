@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bookmarks Plus</title>
+        <link rel="stylesheet" href="dashboard.css" />
+    </head>
+    <body>
+        <!-- Popup Modal -->
+        <div id="popup" class="popup-overlay">
+            <div class="popup-content">
+                <h2 id="popup-title"></h2>
+                <p id="popup-url"></p>
+                <p id="popup-category"></p>
+                <p id="popup-tags"></p>
+                <p id="popup-notes"></p>
+            </div>
+        </div>
+
+        <div class="container">
+            <header class="header">
+                <h1>Bookmarks Plus</h1>
+                <button id="add-bookmark-btn">+ Add Bookmark</button>
+            </header>
+            <main class="main">
+                <div class="search-container">
+                    <input
+                        type="text"
+                        id="search-term"
+                        placeholder="Search bookmarks..."
+                    />
+                    <select id="category-filter">
+                        <option value="">All Categories</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                    </select>
+                    <select id="tag-filter" multiple>
+                        <option value="important">Important</option>
+                        <option value="fun">Fun</option>
+                    </select>
+                </div>
+                <div id="bookmarks-container" class="bookmarks-container"></div>
+            </main>
+            <footer class="footer">
+                <p>© 2023 Bookmarks Plus. All rights reserved.</p>
+            </footer>
+        </div>
+        <script src="dashboard.js"></script>
+    </body>
+</html>
