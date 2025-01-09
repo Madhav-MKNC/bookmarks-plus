@@ -10,6 +10,7 @@ const bookmarks = [
     { id: 9, url: "https://sports.com", title: "Sports Example", category: "Personal", tags: ["fun"], notes: "Sports-related website." },
     { id: 10, url: "https://tech.com", title: "Tech Example", category: "Work", tags: ["important"], notes: "Technology site." }
 ];
+localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
 
 const bookmarksContainer = document.getElementById("bookmarks-container");
 const searchTermInput = document.getElementById("search-term");
@@ -25,6 +26,10 @@ const popupNotes = document.getElementById("popup-notes");
 
 function renderBookmarks(filteredBookmarks) {
     bookmarksContainer.innerHTML = ""; // Clear container before rendering
+
+    // Get current bookmarks from localStorage (if they exist), or initialize an empty array
+    let storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
     filteredBookmarks.forEach((bookmark) => {
         const bookmarkElement = document.createElement("div");
         bookmarkElement.classList.add("bookmark");
@@ -41,9 +46,17 @@ function renderBookmarks(filteredBookmarks) {
             </div>
             <button class="view-btn" onclick="viewBookmark(${bookmark.id})">View</button>
         `;
-        
+
         bookmarksContainer.appendChild(bookmarkElement);
+
+        // Add to stored bookmarks if not already stored
+        if (!storedBookmarks.some(b => b.id === bookmark.id)) {
+            storedBookmarks.push(bookmark);
+        }
     });
+
+    // Save updated bookmarks array to localStorage
+    localStorage.setItem('bookmarks', JSON.stringify(storedBookmarks));
 }
 
 // Open the popup with bookmark details
@@ -126,9 +139,22 @@ categoryFilter.addEventListener("change", () => {
 
 // Function to handle the redirection to /view-bookmark.html
 function viewBookmark(bookmarkId) {
-    const viewUrl = `/view-bookmark.html?id=${bookmarkId}`;
+    const viewUrl = `view-bookmark.html?id=${bookmarkId}`;
     window.open(viewUrl, '_blank');
 }
+
+
+// function viewBookmark(bookmarkId) {
+//     const bookmark = getBookmarkById(bookmarkId); // Retrieve the bookmark data by ID
+//     localStorage.setItem('bookmarkData', JSON.stringify(bookmark));
+//     window.location.href = '/view-bookmark.html'; // Navigate to the view bookmark page
+// }
+
+// Function to fetch a bookmark by its ID
+// function getBookmarkById(id) {
+//     return bookmarks.find(bookmark => bookmark.id === id);
+// }
+
 
 // Initial Render
 renderBookmarks(bookmarks);
