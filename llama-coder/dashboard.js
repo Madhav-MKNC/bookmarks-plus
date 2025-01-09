@@ -1,16 +1,13 @@
-// const bookmarks = [
-//     { id: 1, url: "https://example.com", title: "Example", category: "Work", tags: ["important"], notes: "Visit this site for more info." },
-//     { id: 2, url: "https://another-example.com", title: "Another Example", category: "Personal", tags: ["fun"], notes: "Just for fun." },
-//     { id: 3, url: "https://some-example.com", title: "Some Example", category: "Personal", tags: ["fun"], notes: "Random website." },
-//     { id: 4, url: "https://random.com", title: "Random Example", category: "Work", tags: ["important"], notes: "Check it out." },
-//     { id: 5, url: "https://website.com", title: "Website Example", category: "Work", tags: ["important"], notes: "Useful for work." },
-//     { id: 6, url: "https://cool.com", title: "Cool Example", category: "Personal", tags: ["fun"], notes: "Cool site for fun." },
-//     { id: 7, url: "https://news.com", title: "News Example", category: "Work", tags: ["important"], notes: "Daily news website." },
-//     { id: 8, url: "https://education.com", title: "Education Example", category: "Work", tags: ["important"], notes: "For educational purposes." },
-//     { id: 9, url: "https://sports.com", title: "Sports Example", category: "Personal", tags: ["fun"], notes: "Sports-related website." },
-//     { id: 10, url: "https://tech.com", title: "Tech Example", category: "Work", tags: ["important"], notes: "Technology site." }
-// ];
-// localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+fetch('bookmarks.json')
+    .then(response => response.json())
+    .then(bookmarks => {
+        // Store the bookmarks in localStorage
+        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    })
+    .catch(error => {
+        console.error('Error loading the JSON file:', error);
+    });
+
 let storedBooksmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 
 const bookmarksContainer = document.getElementById("bookmarks-container");
@@ -182,7 +179,7 @@ function viewBookmark(bookmarkId) {
 //     return bookmarks.find(bookmark => bookmark.id === id);
 // }
 
-window.addEventListener("storage", function(event) {
+window.addEventListener("storage", function (event) {
     if (event.key === "bookmarks") { // If the "bookmarks" key has changed
         location.reload(); // Reload the page to reflect the new data
     }
