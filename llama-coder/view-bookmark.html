@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>View Bookmark</title>
+        <link rel="stylesheet" href="bookmark.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="form-container">
+                <div class="left-column">
+                    <h2>View Bookmark</h2>
+                    <form>
+                        <label for="title">Title *</label>
+                        <input
+                            type="text"
+                            id="title"
+                            value="Sample Bookmark Title"
+                            readonly
+                        />
+
+                        <label for="url">URL *</label>
+                        <input
+                            type="url"
+                            id="url"
+                            value="https://example.com"
+                            readonly
+                        />
+
+                        <label for="category">Category *</label>
+                        <input
+                            type="text"
+                            id="category"
+                            value="Personal"
+                            readonly
+                        />
+
+                        <label for="tags">Tags</label>
+                        <input
+                            type="text"
+                            id="tags"
+                            value="tag1, tag2, tag3"
+                            readonly
+                        />
+
+                        <div class="form-actions">
+                            <button
+                                type="button"
+                                class="edit-btn"
+                                id="edit-btn"
+                            >
+                                Edit
+                            </button>
+                            <button
+                                type="button"
+                                class="delete-btn hidden"
+                                id="delete-btn"
+                                onclick="delete_bookmark()"
+                            >
+                                Delete
+                            </button>
+                            <button
+                                type="submit"
+                                class="save-btn hidden"
+                                id="save-btn"
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="right-column">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" readonly>
+Sample notes about this bookmark.</textarea
+                    >
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const editBtn = document.getElementById("edit-btn");
+            const saveBtn = document.getElementById("save-btn");
+            const deleteBtn = document.getElementById("delete-btn");
+            const inputs = document.querySelectorAll("input, textarea");
+            const heading = document.querySelector("h2"); // Select the heading element
+            
+            editBtn.addEventListener("click", () => {
+              inputs.forEach((input) => input.removeAttribute("readonly"));
+              editBtn.classList.add("hidden");
+              saveBtn.classList.remove("hidden");
+              deleteBtn.classList.remove("hidden");
+            
+              // Change the heading when editing
+              heading.textContent = "Edit Bookmark";
+            });            
+
+            function delete_bookmark() {
+                alert("Delete function triggered!");
+            }
+        </script>
+    </body>
+</html>

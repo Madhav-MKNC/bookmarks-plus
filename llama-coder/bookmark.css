@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1e1e2f;
+    color: #e4e4e7;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    background-color: #2a2a40;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+    display: flex;
+    width: 100%;
+}
+
+.left-column,
+.right-column {
+    padding: 30px;
+}
+
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.left-column h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+form label {
+    font-size: 14px;
+    color: #a1a1aa;
+    margin-bottom: 8px;
+    display: block;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #3b3b4f;
+    border-radius: 6px;
+    background-color: #262637;
+    color: #e4e4e7;
+    font-size: 14px;
+}
+
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border: 1px solid #3b3b4f;
+    border-radius: 6px;
+    background-color: #262637;
+    color: #e4e4e7;
+    font-size: 16px;
+    resize: none;
+}
+
+textarea::placeholder {
+    color: #a1a1aa;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.cancel-btn,
+.save-btn,
+.edit-btn,
+.delete-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn, .delete-btn {
+    background-color: #444452;
+    color: #e4e4e7;
+}
+
+.save-btn {
+    background-color: #4f46e5;
+    color: #ffffff;
+}
+
+.edit-btn {
+    background-color: #c87a36;
+    color: #ffffff;
+}
+
+.edit-btn:hover {
+    background-color: #a9672e;
+    color: #ffffff;
+}
+
+.cancel-btn:hover, .delete-btn:hover {
+    background-color: #555567;
+}
+
+.save-btn:hover {
+    background-color: #3b36c8;
+}
+
+.hidden {
+    display: none;
+}
