@@ -85,16 +85,24 @@ Sample notes about this bookmark.</textarea
             const deleteBtn = document.getElementById("delete-btn");
             const inputs = document.querySelectorAll("input, textarea");
             const heading = document.querySelector("h2"); // Select the heading element
-            
+
             editBtn.addEventListener("click", () => {
-              inputs.forEach((input) => input.removeAttribute("readonly"));
-              editBtn.classList.add("hidden");
-              saveBtn.classList.remove("hidden");
-              deleteBtn.classList.remove("hidden");
-            
-              // Change the heading when editing
-              heading.textContent = "Edit Bookmark";
-            });            
+                inputs.forEach((input) => input.removeAttribute("readonly"));
+                editBtn.classList.add("hidden");
+                saveBtn.classList.remove("hidden");
+                deleteBtn.classList.remove("hidden");
+
+                // Change the heading when editing
+                heading.textContent = "Edit Bookmark";
+            });
+
+            saveBtn.addEventListener("click", () => {
+                heading.textContent = "View Bookmark";
+                inputs.forEach((input) => input.setAttribute("readonly", true));
+                saveBtn.classList.add("hidden");
+                deleteBtn.classList.add("hidden");
+                editBtn.classList.remove("hidden");
+            });
 
             function delete_bookmark() {
                 alert("Delete function triggered!");

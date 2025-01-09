@@ -29,6 +29,8 @@ function renderBookmarks(filteredBookmarks) {
         const bookmarkElement = document.createElement("div");
         bookmarkElement.classList.add("bookmark");
         bookmarkElement.setAttribute("data-id", bookmark.id); // Set data-id
+
+        // Create bookmark HTML with the View button inside the bookmark container
         bookmarkElement.innerHTML = `
             <div class="bookmark-content">
                 <h2>${bookmark.title}</h2>
@@ -37,7 +39,9 @@ function renderBookmarks(filteredBookmarks) {
                 <p>Tags: ${bookmark.tags.join(", ")}</p>
                 <p>${bookmark.notes}</p>
             </div>
+            <button class="view-btn" onclick="viewBookmark(${bookmark.id})">View</button>
         `;
+        
         bookmarksContainer.appendChild(bookmarkElement);
     });
 }
@@ -119,6 +123,12 @@ categoryFilter.addEventListener("change", () => {
     filteredBookmarks = filterByCategory(filteredBookmarks);  // Apply category filter
     renderBookmarks(filteredBookmarks);  // Render the matched bookmarks
 });
+
+// Function to handle the redirection to /view-bookmark.html
+function viewBookmark(bookmarkId) {
+    const viewUrl = `/view-bookmark.html?id=${bookmarkId}`;
+    window.open(viewUrl, '_blank');
+}
 
 // Initial Render
 renderBookmarks(bookmarks);
