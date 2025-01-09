@@ -3,12 +3,12 @@
     "name": "Bookmarks-plus",
     "version": "1.0",
     "description": "A Chrome extension to manage bookmarks with categorization, tagging, and notes.",
-    "permissions": ["storage", "activeTab", "tabs"],
+    "permissions": ["storage", "activeTab", "tabs", "downloads"],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background/background.js"
     },
     "action": {
-        "default_popup": "popup.html",
+        "default_popup": "popup/popup.html",
         "default_icon": {
             "128": "assets/icons/icon.png"
         },
@@ -26,7 +26,7 @@
     "host_permissions": ["http://*/*", "https://*/*"],
     "web_accessible_resources": [
         {
-            "resources": [".saved_bookmarks.json"],
+            "resources": [".storage/saved_bookmarks.json"],
             "matches": ["<all_urls>"]
         }
     ]

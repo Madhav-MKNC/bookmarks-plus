@@ -1,4 +1,5 @@
-let storedBooksmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+fetchBookmarksAndStore();
+const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 
 const bookmarksContainer = document.getElementById("bookmarks-container");
 const searchTermInput = document.getElementById("search-term");
@@ -15,15 +16,12 @@ const popupNotes = document.getElementById("popup-notes");
 function renderBookmarks(filteredBookmarks) {
     bookmarksContainer.innerHTML = ""; // Clear container before rendering
 
-    // Get current bookmarks from localStorage (if they exist), or initialize an empty array
-    let storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-
     filteredBookmarks.forEach((bookmark) => {
         const bookmarkElement = document.createElement("div");
         bookmarkElement.classList.add("bookmark");
         bookmarkElement.setAttribute("data-id", bookmark.id); // Set data-id
 
-        // Create bookmark HTML with the View button inside the bookmark container
+        // Create bookmark HTML without inline event handlers
         bookmarkElement.innerHTML = `
             <div class="bookmark-content">
                 <h2>${bookmark.title}</h2>
@@ -32,15 +30,21 @@ function renderBookmarks(filteredBookmarks) {
                 <p>Tags: ${bookmark.tags.join(", ")}</p>
                 <p>${bookmark.notes}</p>
             </div>
-            <button class="view-btn" onclick="viewBookmark(${bookmark.id})">View</button>
+            <button class="view-btn">View</button>
         `;
 
+        // Append bookmark element
         bookmarksContainer.appendChild(bookmarkElement);
+    });
 
-        // Add to stored bookmarks if not already stored
-        if (!storedBookmarks.some(b => b.id === bookmark.id)) {
-            storedBookmarks.push(bookmark);
-        }
+    // Add event listeners for View buttons
+    const viewButtons = bookmarksContainer.querySelectorAll(".view-btn");
+    viewButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+            const bookmarkElement = event.target.closest(".bookmark");
+            const bookmarkId = parseInt(bookmarkElement.getAttribute("data-id"));
+            viewBookmark(bookmarkId); // Call the viewBookmark function
+        });
     });
 
     // Save updated bookmarks array to localStorage
@@ -75,7 +79,7 @@ popup.addEventListener("click", (event) => {
 // Function to search each word in the input text in all bookmark fields
 function searchBookmarks(text) {
     const searchWords = text.toLowerCase().split(" "); // Split the input text into words
-    const matchedBookmarks = storedBooksmarks.filter((bookmark) => {
+    const matchedBookmarks = storedBookmarks.filter((bookmark) => {
         // Check if any word matches the bookmark's title, URL, category, tags, or notes
         const titleMatch = searchWords.some(word => bookmark.title.toLowerCase().includes(word));
         const urlMatch = searchWords.some(word => bookmark.url.toLowerCase().includes(word));
@@ -95,7 +99,7 @@ bookmarksContainer.addEventListener("click", (event) => {
     const bookmarkElement = event.target.closest(".bookmark");
     if (bookmarkElement) {
         const bookmarkId = parseInt(bookmarkElement.getAttribute("data-id"));
-        const bookmark = storedBooksmarks.find(b => b.id === bookmarkId);
+        const bookmark = storedBookmarks.find(b => b.id === bookmarkId);
         openPopup(bookmark);
     }
 });
@@ -161,7 +165,7 @@ function viewBookmark(bookmarkId) {
 // function viewBookmark(bookmarkId) {
 //     const bookmark = getBookmarkById(bookmarkId); // Retrieve the bookmark data by ID
 //     localStorage.setItem('bookmarkData', JSON.stringify(bookmark));
-//     window.location.href = '/view-bookmark.html'; // Navigate to the view bookmark page
+//     window.location.href = 'view-bookmark.html'; // Navigate to the view bookmark page
 // }
 
 // Function to fetch a bookmark by its ID
@@ -176,4 +180,4 @@ window.addEventListener("storage", function (event) {
 });
 
 // Initial Render
-renderBookmarks(storedBooksmarks);
+renderBookmarks(storedBookmarks);

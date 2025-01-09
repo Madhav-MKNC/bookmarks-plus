@@ -6,7 +6,7 @@ document
             { active: true, currentWindow: true },
             (tabs) => {
                 const currentUrl = tabs[0].url;
-                const viewUrl = `add-bookmark.html?url=${encodeURIComponent(
+                const viewUrl = `app/add-bookmark.html?url=${encodeURIComponent(
                     currentUrl
                 )}`;
                 chrome.tabs.create({ url: viewUrl });
@@ -17,5 +17,5 @@ document
 document
     .getElementById("dashboard")
     .addEventListener("click", () => {
-        chrome.tabs.create({ url: "dashboard.html" });
+        chrome.tabs.create({ url: "app/dashboard.html" });
     });
