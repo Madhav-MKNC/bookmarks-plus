@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Add New Bookmark</title>
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+    <body>
+        <div class="popup-overlay">
+            <div class="popup">
+                <div class="popup-header">
+                    <h2>Add New Bookmark</h2>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <form class="popup-form">
+                    <label for="title">Title *</label>
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Enter bookmark title"
+                        required
+                    />
+
+                    <label for="url">URL *</label>
+                    <input
+                        type="url"
+                        id="url"
+                        placeholder="https://example.com"
+                        required
+                    />
+
+                    <label for="category">Category *</label>
+                    <input
+                        type="text"
+                        id="category"
+                        placeholder="e.g., Work, Personal, Reading"
+                        required
+                    />
+
+                    <label for="tags">Tags</label>
+                    <input
+                        type="text"
+                        id="tags"
+                        placeholder="tag1, tag2, tag3"
+                    />
+
+                    <label for="notes">Notes</label>
+                    <textarea
+                        id="notes"
+                        placeholder="Add any notes about this bookmark..."
+                    ></textarea>
+
+                    <div class="popup-actions">
+                        <button type="button" class="cancel-btn">Cancel</button>
+                        <button type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
