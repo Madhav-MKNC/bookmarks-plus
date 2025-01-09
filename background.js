@@ -1,14 +1,9 @@
-chrome.commands.onCommand.addListener(function (command) {
-    if (command.startsWith("open-popup")) {
-        // Check if there is an active tab in the current window
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            if (tabs && tabs.length > 0) {
-                // Active tab exists, proceed with the action
-                chrome.action.openPopup();
-            } else {
-                // No active tab, log an error or handle it
-                console.error("No active tab found.");
-            }
+chrome.commands.onCommand.addListener((command) => {
+    if (command === "add-bookmark") {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const currentUrl = tabs[0].url;
+            const viewUrl = `add-bookmark.html?url=${encodeURIComponent(currentUrl)}`;
+            chrome.tabs.create({ url: chrome.runtime.getURL(viewUrl) });
         });
     }
 });
