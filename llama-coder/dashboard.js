@@ -1,13 +1,3 @@
-fetch('bookmarks.json')
-    .then(response => response.json())
-    .then(bookmarks => {
-        // Store the bookmarks in localStorage
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    })
-    .catch(error => {
-        console.error('Error loading the JSON file:', error);
-    });
-
 let storedBooksmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 
 const bookmarksContainer = document.getElementById("bookmarks-container");

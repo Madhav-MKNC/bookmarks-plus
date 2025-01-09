@@ -1,10 +1,9 @@
-chrome.action.onClicked.addListener((tab) => {
-    // Get the current tab's URL
-    const url = tab.url;
-
-    // Construct the URL for the new tab
-    const viewUrl = `add-bookmark.html?url=${encodeURIComponent(url)}`;
-
-    // Open the new tab
-    chrome.tabs.create({ url: viewUrl });
+chrome.commands.onCommand.addListener((command) => {
+    if (command === "add-bookmark") {
+        chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            const currentUrl = tabs[0].url;
+            const viewUrl = `add-bookmark.html?url=${encodeURIComponent(currentUrl)}`;
+            chrome.tabs.create({ url: chrome.runtime.getURL(viewUrl) });
+        });
+    }
 });
