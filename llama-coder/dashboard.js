@@ -1,16 +1,17 @@
-const bookmarks = [
-    { id: 1, url: "https://example.com", title: "Example", category: "Work", tags: ["important"], notes: "Visit this site for more info." },
-    { id: 2, url: "https://another-example.com", title: "Another Example", category: "Personal", tags: ["fun"], notes: "Just for fun." },
-    { id: 3, url: "https://some-example.com", title: "Some Example", category: "Personal", tags: ["fun"], notes: "Random website." },
-    { id: 4, url: "https://random.com", title: "Random Example", category: "Work", tags: ["important"], notes: "Check it out." },
-    { id: 5, url: "https://website.com", title: "Website Example", category: "Work", tags: ["important"], notes: "Useful for work." },
-    { id: 6, url: "https://cool.com", title: "Cool Example", category: "Personal", tags: ["fun"], notes: "Cool site for fun." },
-    { id: 7, url: "https://news.com", title: "News Example", category: "Work", tags: ["important"], notes: "Daily news website." },
-    { id: 8, url: "https://education.com", title: "Education Example", category: "Work", tags: ["important"], notes: "For educational purposes." },
-    { id: 9, url: "https://sports.com", title: "Sports Example", category: "Personal", tags: ["fun"], notes: "Sports-related website." },
-    { id: 10, url: "https://tech.com", title: "Tech Example", category: "Work", tags: ["important"], notes: "Technology site." }
-];
-localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+// const bookmarks = [
+//     { id: 1, url: "https://example.com", title: "Example", category: "Work", tags: ["important"], notes: "Visit this site for more info." },
+//     { id: 2, url: "https://another-example.com", title: "Another Example", category: "Personal", tags: ["fun"], notes: "Just for fun." },
+//     { id: 3, url: "https://some-example.com", title: "Some Example", category: "Personal", tags: ["fun"], notes: "Random website." },
+//     { id: 4, url: "https://random.com", title: "Random Example", category: "Work", tags: ["important"], notes: "Check it out." },
+//     { id: 5, url: "https://website.com", title: "Website Example", category: "Work", tags: ["important"], notes: "Useful for work." },
+//     { id: 6, url: "https://cool.com", title: "Cool Example", category: "Personal", tags: ["fun"], notes: "Cool site for fun." },
+//     { id: 7, url: "https://news.com", title: "News Example", category: "Work", tags: ["important"], notes: "Daily news website." },
+//     { id: 8, url: "https://education.com", title: "Education Example", category: "Work", tags: ["important"], notes: "For educational purposes." },
+//     { id: 9, url: "https://sports.com", title: "Sports Example", category: "Personal", tags: ["fun"], notes: "Sports-related website." },
+//     { id: 10, url: "https://tech.com", title: "Tech Example", category: "Work", tags: ["important"], notes: "Technology site." }
+// ];
+// localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+let storedBooksmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 
 const bookmarksContainer = document.getElementById("bookmarks-container");
 const searchTermInput = document.getElementById("search-term");
@@ -87,7 +88,7 @@ popup.addEventListener("click", (event) => {
 // Function to search each word in the input text in all bookmark fields
 function searchBookmarks(text) {
     const searchWords = text.toLowerCase().split(" "); // Split the input text into words
-    const matchedBookmarks = bookmarks.filter((bookmark) => {
+    const matchedBookmarks = storedBooksmarks.filter((bookmark) => {
         // Check if any word matches the bookmark's title, URL, category, tags, or notes
         const titleMatch = searchWords.some(word => bookmark.title.toLowerCase().includes(word));
         const urlMatch = searchWords.some(word => bookmark.url.toLowerCase().includes(word));
@@ -102,21 +103,12 @@ function searchBookmarks(text) {
     return matchedBookmarks;
 }
 
-// Function to filter bookmarks by category
-function filterByCategory(filteredBookmarks) {
-    const selectedCategory = categoryFilter.value;
-    if (selectedCategory) {
-        return filteredBookmarks.filter(bookmark => bookmark.category === selectedCategory);
-    }
-    return filteredBookmarks;
-}
-
 // Event Listener for bookmark clicks to open the popup
 bookmarksContainer.addEventListener("click", (event) => {
     const bookmarkElement = event.target.closest(".bookmark");
     if (bookmarkElement) {
         const bookmarkId = parseInt(bookmarkElement.getAttribute("data-id"));
-        const bookmark = bookmarks.find(b => b.id === bookmarkId);
+        const bookmark = storedBooksmarks.find(b => b.id === bookmarkId);
         openPopup(bookmark);
     }
 });
@@ -129,6 +121,15 @@ searchTermInput.addEventListener("input", () => {
     renderBookmarks(filteredBookmarks);  // Render the matched bookmarks
 });
 
+// Function to filter bookmarks by category
+function filterByCategory(filteredBookmarks) {
+    const selectedCategory = categoryFilter.value;
+    if (selectedCategory) {
+        return filteredBookmarks.filter(bookmark => bookmark.category === selectedCategory);
+    }
+    return filteredBookmarks;
+}
+
 // Category Filter: Update bookmarks based on selected category
 categoryFilter.addEventListener("change", () => {
     let searchText = searchTermInput.value;  // Get the text from the input
@@ -136,6 +137,32 @@ categoryFilter.addEventListener("change", () => {
     filteredBookmarks = filterByCategory(filteredBookmarks);  // Apply category filter
     renderBookmarks(filteredBookmarks);  // Render the matched bookmarks
 });
+
+// Function to populate category dropdown dynamically
+function populateCategoryFilter() {
+    const categoryFilter = document.getElementById("category-filter");
+    const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+    // Extract unique categories from the stored bookmarks
+    const categories = [...new Set(storedBookmarks.map(bookmark => bookmark.category))];
+
+    // Clear existing options (if any)
+    categoryFilter.innerHTML = '';
+
+    // Add a default "All Categories" option
+    categoryFilter.innerHTML = '<option value="">All Categories</option>';
+
+    // Add each category as a new option
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+    });
+}
+
+// Call the populate function when the page is loaded or when bookmarks are updated
+populateCategoryFilter();
 
 // Function to handle the redirection to /view-bookmark.html
 function viewBookmark(bookmarkId) {
@@ -155,6 +182,11 @@ function viewBookmark(bookmarkId) {
 //     return bookmarks.find(bookmark => bookmark.id === id);
 // }
 
+window.addEventListener("storage", function(event) {
+    if (event.key === "bookmarks") { // If the "bookmarks" key has changed
+        location.reload(); // Reload the page to reflect the new data
+    }
+});
 
 // Initial Render
-renderBookmarks(bookmarks);
+renderBookmarks(storedBooksmarks);

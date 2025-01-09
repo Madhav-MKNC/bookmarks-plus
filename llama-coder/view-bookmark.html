@@ -5,19 +5,36 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>View Bookmark</title>
         <link rel="stylesheet" href="bookmark.css" />
+        <style>
+            /* Custom styles for invalid fields */
+            input:invalid,
+            textarea:invalid {
+                border: 2px solid red;
+                background-color: #f8d7da; /* Light red */
+                color: #721c24; /* Dark red text for contrast */
+            }
+
+            input:valid,
+            textarea:valid {
+                border: 2px solid green;
+                background-color: #d4edda; /* Light green */
+                color: #155724; /* Dark green text for contrast */
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <div class="form-container">
                 <div class="left-column">
                     <h2>View Bookmark</h2>
-                    <form>
+                    <form id="bookmark-form">
                         <label for="title">Title *</label>
                         <input
                             type="text"
                             id="title"
                             value="Sample Bookmark Title"
                             readonly
+                            required
                         />
 
                         <label for="url">URL *</label>
@@ -26,6 +43,7 @@
                             id="url"
                             value="https://example.com"
                             readonly
+                            required
                         />
 
                         <label for="category">Category *</label>
@@ -34,6 +52,7 @@
                             id="category"
                             value="Personal"
                             readonly
+                            required
                         />
 
                         <label for="tags">Tags</label>
@@ -85,6 +104,7 @@ Sample notes about this bookmark.</textarea
             const deleteBtn = document.getElementById("delete-btn");
             const inputs = document.querySelectorAll("input, textarea");
             const heading = document.querySelector("h2");
+            const form = document.getElementById("bookmark-form");
 
             // Extract the bookmark ID from the URL query string
             const urlParams = new URLSearchParams(window.location.search);
@@ -117,50 +137,58 @@ Sample notes about this bookmark.</textarea
                 heading.textContent = "Edit Bookmark";
             });
 
-            saveBtn.addEventListener("click", () => {
-                heading.textContent = "View Bookmark";
-                inputs.forEach((input) => input.setAttribute("readonly", true));
-                saveBtn.classList.add("hidden");
-                deleteBtn.classList.add("hidden");
-                editBtn.classList.remove("hidden");
+            saveBtn.addEventListener("click", (e) => {
+                e.preventDefault(); // Prevent form submission (you can keep the button as submit for easy styling)
 
-                // Save the updated bookmark data (you could also send this data back to a database or local storage)
-                const updatedBookmark = {
-                    ...bookmark,
-                    title: document.getElementById("title").value,
-                    url: document.getElementById("url").value,
-                    category: document.getElementById("category").value,
-                    tags: document
-                        .getElementById("tags")
-                        .value.split(",")
-                        .map((tag) => tag.trim()),
-                    notes: document.getElementById("notes").value,
-                };
+                // Validate form fields
+                if (form.checkValidity()) {
+                    heading.textContent = "View Bookmark";
+                    inputs.forEach((input) =>
+                        input.setAttribute("readonly", true)
+                    );
+                    saveBtn.classList.add("hidden");
+                    deleteBtn.classList.add("hidden");
+                    editBtn.classList.remove("hidden");
 
-                // Update the bookmark in localStorage
-                const updatedBookmarks = storedBookmarks.map((b) =>
-                    b.id === bookmarkId ? updatedBookmark : b
-                );
+                    // Save the updated bookmark data
+                    const updatedBookmark = {
+                        ...bookmark,
+                        title: document.getElementById("title").value,
+                        url: document.getElementById("url").value,
+                        category: document.getElementById("category").value,
+                        tags: document
+                            .getElementById("tags")
+                            .value.split(",")
+                            .map((tag) => tag.trim()),
+                        notes: document.getElementById("notes").value,
+                    };
 
-                localStorage.setItem(
-                    "bookmarks",
-                    JSON.stringify(updatedBookmarks)
-                );
+                    // Update the bookmark in localStorage
+                    const updatedBookmarks = storedBookmarks.map((b) =>
+                        b.id === bookmarkId ? updatedBookmark : b
+                    );
+
+                    localStorage.setItem(
+                        "bookmarks",
+                        JSON.stringify(updatedBookmarks)
+                    );
+                } else {
+                    alert("Please fill in all required fields correctly.");
+                }
             });
 
             function delete_bookmark() {
-                // Remove bookmark from localStorage
-                const updatedBookmarks = storedBookmarks.filter(
-                    (b) => b.id !== bookmarkId
-                );
-                localStorage.setItem(
-                    "bookmarks",
-                    JSON.stringify(updatedBookmarks)
-                );
-
-                // Redirect back to the main page after deleting
-                alert("Bookmark deleted!");
-                window.location.href = "/index.html"; // Assuming this is your main page
+                // Ask for confirmation before deleting the bookmark
+                const confirmation = confirm("Are you sure you want to delete this bookmark?");
+                if (confirmation) {
+                    // Remove bookmark from localStorage
+                    const updatedBookmarks = storedBookmarks.filter(
+                        (b) => b.id !== bookmarkId
+                    );
+                    localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks)
+                    );
+                    window.close();
+                }
             }
         </script>
     </body>
