@@ -158,6 +158,40 @@ body {
     margin-bottom: 10px;
 }
 
+/* Styling for the add bookmark form */
+#add-bookmark-popup .popup-content {
+    width: 400px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#add-bookmark-popup input,
+#add-bookmark-popup select,
+#add-bookmark-popup textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+#add-bookmark-popup .button-group button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-bookmark-popup .button-group button:hover {
+    background: #0056b3;
+}
+
+
 @keyframes popup-anim {
     0% {
         transform: scale(0.9);
