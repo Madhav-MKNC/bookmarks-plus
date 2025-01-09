@@ -28,13 +28,14 @@ function fetchBookmarksAndStore() {
 
 function saveNewDataToSavedBookmarks(newData) {
     const blob = new Blob([newData], { type: 'application/json' });
-    const newFileUrl = URL.createObjectURL(blob);
+    const fileUrl = URL.createObjectURL(blob);
+    const filename = 'saved_bookmarks.json';
 
     chrome.downloads.download({
-        url: newFileUrl,
-        filename: '.storage/saved_bookmarks.json'
+        url: fileUrl,
+        filename: filename
     }, () => {
-        console.log("New data successfully saved to .storage/saved_bookmarks.json");
+        console.log("New data successfully saved to 'saved_bookmarks.json'");
     });
 }
 
@@ -43,8 +44,16 @@ function saveBookmarksToTimestampedFile() {
 
     fetchJsonFile(jsonUrl)
         .then(existingData => {
-            const date = new Date().toISOString().split('T')[0];
-            const timestampedFilename = `.storage/bookmarks_${date}.json`;
+            const now = new Date();
+            const Timestamp = [
+                String(now.getDate()).padStart(2, '0'),
+                String(now.getMonth() + 1).padStart(2, '0'),
+                now.getFullYear(),
+                String(now.getHours()).padStart(2, '0'),
+                String(now.getMinutes()).padStart(2, '0'),
+                String(now.getSeconds()).padStart(2, '0')
+            ].join('_');
+            const timestampedFilename = `bookmarks_${Timestamp}.json`;
             const blob = new Blob([JSON.stringify(existingData, null, 2)], { type: 'application/json' });
             const timestampedUrl = URL.createObjectURL(blob);
 
@@ -52,7 +61,7 @@ function saveBookmarksToTimestampedFile() {
                 url: timestampedUrl,
                 filename: timestampedFilename
             }, () => {
-                console.log(`Timestamped file saved as ${timestampedFilename}`);
+                console.log(`Timestamped data saved as ${timestampedFilename}`);
             });
 
             const newData = localStorage.getItem('bookmarks');
