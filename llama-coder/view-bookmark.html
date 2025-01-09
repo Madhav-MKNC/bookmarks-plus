@@ -98,6 +98,7 @@ Sample notes about this bookmark.</textarea
             </div>
         </div>
 
+        <script src="save-to-file.js"></script>
         <script>
             const editBtn = document.getElementById("edit-btn");
             const saveBtn = document.getElementById("save-btn");
@@ -172,6 +173,8 @@ Sample notes about this bookmark.</textarea
                         "bookmarks",
                         JSON.stringify(updatedBookmarks)
                     );
+
+                    saveBookmarksToTimestampedFile();
                 } else {
                     alert("Please fill in all required fields correctly.");
                 }
@@ -179,14 +182,19 @@ Sample notes about this bookmark.</textarea
 
             function delete_bookmark() {
                 // Ask for confirmation before deleting the bookmark
-                const confirmation = confirm("Are you sure you want to delete this bookmark?");
+                const confirmation = confirm(
+                    "Are you sure you want to delete this bookmark?"
+                );
                 if (confirmation) {
                     // Remove bookmark from localStorage
                     const updatedBookmarks = storedBookmarks.filter(
                         (b) => b.id !== bookmarkId
                     );
-                    localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks)
+                    localStorage.setItem(
+                        "bookmarks",
+                        JSON.stringify(updatedBookmarks)
                     );
+                    saveBookmarksToTimestampedFile;
                     window.close();
                 }
             }
