@@ -3,12 +3,16 @@
     --primary-hover: rgba(228, 53, 105, 0.8);
     --secondary: rgb(170, 109, 223);
     --secondary-hover: rgb(170, 109, 223, 0.8);
-    --background: #2f2d39;
-    --main-text: #e0e0e0;
-    --sub-text: #b0b0c5;
+    --background: rgb(47, 45, 57);
+    --main-text: rgb(228, 228, 228);
+    --sub-text: rgb(194, 189, 189);
+    --item-bg: rgba(102, 100, 114, 0.21);
+    --item-bg-focus: rgba(102, 100, 114, 0.42);
+    --border-1: rgba(255, 255, 255, 0.301);
+    --border-2: rgba(255, 255, 255, 0.1);
+    --dropdown-bg: rgb(31, 29, 37);
 }
 
-/* General Styles */
 body {
     font-family: "Inter", Arial, sans-serif;
     margin: 0;
@@ -21,30 +25,66 @@ body {
         linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0));
 }
 
-header {
-    background: rgba(50, 50, 75, 0.8);
-    backdrop-filter: blur(10px);
-}
-
-/* Container */
 .container {
+    padding-inline: 2rem;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Header */
 .header {
-    padding: 1rem;
+    padding: 0.5rem;
+    padding-inline: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #38384e;
+    border-bottom: 1px solid var(--border-1);
 }
 
 .header h1 {
-    font-size: 1.5rem;
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 25px;
     color: var(--primary);
+    /* padding: 10px; */
+    /* border: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+.search-container {
+    /* margin: 1.5rem; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-container input {
+    background-color: var(--item-bg);
+    color: var(--main-text);
+}
+
+.search-container input:focus {
+    background-color: var(--item-bg-focus);
+}
+
+.search-container select {
+    background-color: var(--dropdown-bg);
+    color: var(--main-text);
+}
+
+.search-container select:focus {
+    background-color: var(--dropdown-bg);
+    color: var(--main-text);
+}
+
+.search-container input,
+.search-container select {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bolder;
+    outline: none;
+    transition: background 0.3s;
 }
 
 .header button {
@@ -61,37 +101,12 @@ header {
     background-color: var(--primary-hover);
 }
 
-/* Main */
 .main {
     flex: 1;
-    padding: 1.5rem;
+    /* padding-inline: 2rem; */
+    margin-top: 1.5rem;
 }
 
-.search-container {
-    margin-bottom: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.search-container input,
-.search-container select {
-    flex: 1;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--item-bg);
-    color: var(--main-text);
-    outline: none;
-    transition: background 0.3s;
-}
-
-.search-container input:focus,
-.search-container select:focus {
-    background-color: var(--item-bg);
-}
-
-/* Bookmarks Grid */
 .bookmarks-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -100,24 +115,23 @@ header {
 }
 
 .bookmark {
-    background: var(--item-bg);
-    backdrop-filter: blur(10px);
-    /* margin: 0 auto; */
-    /* width: 80%; */
-    /* background-color: var(--background); */
+    /* background: var(--item-bg); */
+    backdrop-filter: blur(8px);
     padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-2);
     border-radius: 8px;
     box-shadow: none;
-    transition: box-shadow 0.3s, transform 0.2s;
+    transition: border 0.3s, transform 0.2s;
     position: relative;
-
+    box-shadow: 0 0 5px var(--border-2);
 }
 
 .bookmark:hover {
     cursor: pointer;
-    box-shadow: 0 0px 16px rgba(0, 0, 0, 0.494);
+    border: 1px solid var(--border-1);
 }
+
+/* STYLES TILL HERE DONE */
 
 .bookmark h2 {
     font-size: 1.25rem;
@@ -140,7 +154,6 @@ header {
     color: var(--sub-text);
 }
 
-/* View Button Style */
 .view-btn {
     position: absolute;
     top: 0px;
