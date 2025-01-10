@@ -78,7 +78,10 @@ popup.addEventListener("click", (event) => {
 
 // Function to search each word in the input text in all bookmark fields
 function searchBookmarks(text) {
-    const searchWords = text.toLowerCase().split(" "); // Split the input text into words
+    const trimmedText = text.trim();
+    if (trimmedText === "") { return storedBookmarks; }
+    const searchWords = trimmedText.toLowerCase().split(/\s+/);
+
     const matchedBookmarks = storedBookmarks.filter((bookmark) => {
         // Check if any word matches the bookmark's title, URL, category, tags, or notes
         const titleMatch = searchWords.some(word => bookmark.title.toLowerCase().includes(word));
@@ -161,6 +164,12 @@ function viewBookmark(bookmarkId) {
     window.open(viewUrl, '_blank');
 }
 
+// Add bookmark
+addBookmarkBtn = document.getElementById("add-bookmark-btn");
+addBookmarkBtn.addEventListener("click", () => {
+    const viewUrl = 'add-bookmark.html';
+    window.open(viewUrl, '_blank');
+});
 
 // function viewBookmark(bookmarkId) {
 //     const bookmark = getBookmarkById(bookmarkId); // Retrieve the bookmark data by ID

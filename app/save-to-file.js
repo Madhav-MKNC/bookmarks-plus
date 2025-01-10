@@ -12,8 +12,10 @@ function storeBookmarksInLocalStorage(bookmarks) {
     if (!Array.isArray(bookmarks)) {
         throw new Error('Invalid data format: Expected an array.');
     }
-    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-    console.log('Bookmarks successfully loaded and stored in localStorage.');
+    const existingBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const mergedBookmarks = [...new Map([...existingBookmarks, ...bookmarks].map(item => [JSON.stringify(item), item])).values()];
+    localStorage.setItem('bookmarks', JSON.stringify(mergedBookmarks));
+    console.log('Bookmarks successfully merged and stored in localStorage.');
 }
 
 function fetchBookmarksAndStore() {
@@ -44,7 +46,7 @@ function saveBookmarksToTimestampedFile() {
         String(now.getSeconds()).padStart(2, '0')
     ].join('_');
 
-    const timestampedFilename = `storage/bookmarks_${Timestamp}.json`; // Save in the 'storage' folder
+    const timestampedFilename = `bookmarks-plus-storage/bookmarks_${Timestamp}.json`; // Save in the 'storage' folder
     const blob = new Blob([newData], { type: 'application/json' });
     const timestampedUrl = URL.createObjectURL(blob);
 
