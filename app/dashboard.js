@@ -5,14 +5,6 @@ const bookmarksContainer = document.getElementById("bookmarks-container");
 const searchTermInput = document.getElementById("search-term");
 const categoryFilter = document.getElementById("category-filter");
 
-// Popup Elements
-const popup = document.getElementById("popup");
-const popupTitle = document.getElementById("popup-title");
-const popupUrl = document.getElementById("popup-url");
-const popupCategory = document.getElementById("popup-category");
-const popupTags = document.getElementById("popup-tags");
-const popupNotes = document.getElementById("popup-notes");
-
 function renderBookmarks(filteredBookmarks) {
     bookmarksContainer.innerHTML = ""; // Clear container before rendering
 
@@ -23,14 +15,15 @@ function renderBookmarks(filteredBookmarks) {
 
         // Create bookmark HTML without inline event handlers
         bookmarkElement.innerHTML = `
-            <div class="bookmark-content">
-                <h2>${bookmark.title}</h2>
-                <p><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></p>
-                <p>Category: ${bookmark.category}</p>
-                <p>Tags: ${bookmark.tags.join(", ")}</p>
-                <p>${bookmark.notes}</p>
+            <div class="bookmark-content bookmark-card">
+                <h2 class="bookmark-title">${bookmark.title}</h2>
+                <p class="bookmark-url"><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></p>
+                <p class="bookmark-category">Category: ${bookmark.category}</p>
+                <p class="bookmark-tags">Tags: ${bookmark.tags.join(", ")}</p>
+                <p class="bookmark-notes">${bookmark.notes}</p>
             </div>
-            <button class="view-btn">View</button>
+            <button class="view-btn"><img src="../assets/open.png" alt=""></button>
+            
         `;
 
         // Append bookmark element
@@ -50,31 +43,6 @@ function renderBookmarks(filteredBookmarks) {
     // Save updated bookmarks array to localStorage
     localStorage.setItem('bookmarks', JSON.stringify(storedBookmarks));
 }
-
-// Open the popup with bookmark details
-function openPopup(bookmark) {
-    popupTitle.textContent = bookmark.title;
-    popupUrl.innerHTML = `URL: <a href="${bookmark.url}" target="_blank" class="text-blue-500">${bookmark.url}</a>`; // Make URL clickable
-    popupCategory.textContent = `Category: ${bookmark.category}`;
-    popupTags.textContent = `Tags: ${bookmark.tags.join(", ")}`;
-    popupNotes.textContent = bookmark.notes;
-
-    popup.style.display = 'flex'; // Ensure it's displayed before animation
-    setTimeout(() => {
-        popup.classList.add("active"); // Add active class to trigger fade-in animation
-    }, 10); // Small delay to ensure popup is displayed first
-}
-
-// Close the popup when clicking outside the content
-popup.addEventListener("click", (event) => {
-    if (event.target === popup) {
-        popup.classList.remove("active"); // Remove the active class to trigger fade-out animation
-        // Hide the popup after the fade-out animation
-        setTimeout(() => {
-            popup.style.display = 'none';
-        }, 300); // Match the duration of the fade-out transition (300ms)
-    }
-});
 
 // Function to search each word in the input text in all bookmark fields
 function searchBookmarks(text) {
@@ -97,15 +65,35 @@ function searchBookmarks(text) {
     return matchedBookmarks;
 }
 
-// Event Listener for bookmark clicks to open the popup
+// Event Listener for bookmark clicks to toggle zoom
 bookmarksContainer.addEventListener("click", (event) => {
     const bookmarkElement = event.target.closest(".bookmark");
     if (bookmarkElement) {
-        const bookmarkId = parseInt(bookmarkElement.getAttribute("data-id"));
-        const bookmark = storedBookmarks.find(b => b.id === bookmarkId);
-        openPopup(bookmark);
+        if (zoomedBookmark === bookmarkElement) { revertZoom(); } else {
+            if (zoomedBookmark) { revertZoom(); }
+            bookmarkElement.style.transform = "scale(1.5)";
+            zoomedBookmark = bookmarkElement;
+        }
     }
 });
+
+// Global event listener to revert zoom when clicking anywhere outside a bookmark
+document.addEventListener("click", (event) => {
+    // If the click is outside of a bookmark and there is a zoomed bookmark, revert zoom
+    if (!event.target.closest(".bookmark")) {
+        revertZoom();
+    }
+});
+
+// Function to revert the zoom effect
+function revertZoom() {
+    if (zoomedBookmark) {
+        zoomedBookmark.style.transform = "scale(1)"; // Reset the zoom
+        zoomedBookmark = null; // Clear the zoomed bookmark
+    }
+}
+
+
 
 // Real-time Search: Update the rendered bookmarks on every keystroke
 searchTermInput.addEventListener("input", () => {

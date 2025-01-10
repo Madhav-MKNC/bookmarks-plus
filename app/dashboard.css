@@ -1,11 +1,29 @@
+:root {
+    --primary: rgb(228, 53, 105);
+    --primary-hover: rgba(228, 53, 105, 0.8);
+    --secondary: rgb(170, 109, 223);
+    --secondary-hover: rgb(170, 109, 223, 0.8);
+    --background: #2f2d39;
+    --main-text: #e0e0e0;
+    --sub-text: #b0b0c5;
+}
+
 /* General Styles */
 body {
     font-family: "Inter", Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1e1e2f;
-    color: #e0e0e0;
+    color: var(--text-color-1);
     box-sizing: border-box;
+    background-color: var(--background);
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0));
+}
+
+header {
+    background: rgba(50, 50, 75, 0.8);
+    backdrop-filter: blur(10px);
 }
 
 /* Container */
@@ -18,7 +36,6 @@ body {
 /* Header */
 .header {
     padding: 1rem;
-    background-color: #29293d;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,13 +44,13 @@ body {
 
 .header h1 {
     font-size: 1.5rem;
-    color: #ffffff;
+    color: var(--primary);
 }
 
 .header button {
     padding: 0.5rem 1rem;
-    background-color: #3f3f5a;
-    color: #e0e0e0;
+    background-color: var(--primary);
+    color: var(--main-text);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -41,7 +58,7 @@ body {
 }
 
 .header button:hover {
-    background-color: #52527a;
+    background-color: var(--primary-hover);
 }
 
 /* Main */
@@ -63,15 +80,15 @@ body {
     padding: 0.75rem;
     border: none;
     border-radius: 5px;
-    background-color: #2d2d44;
-    color: #e0e0e0;
+    background-color: var(--item-bg);
+    color: var(--main-text);
     outline: none;
     transition: background 0.3s;
 }
 
 .search-container input:focus,
 .search-container select:focus {
-    background-color: #38384e;
+    background-color: var(--item-bg);
 }
 
 /* Bookmarks Grid */
@@ -83,10 +100,13 @@ body {
 }
 
 .bookmark {
+    background: var(--item-bg);
+    backdrop-filter: blur(10px);
     /* margin: 0 auto; */
     /* width: 80%; */
-    background-color: #29293d;
+    /* background-color: var(--background); */
     padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     box-shadow: none;
     transition: box-shadow 0.3s, transform 0.2s;
@@ -96,235 +116,55 @@ body {
 
 .bookmark:hover {
     cursor: pointer;
-    box-shadow: 0 0px 16px rgba(0, 0, 0, 0.37);
+    box-shadow: 0 0px 16px rgba(0, 0, 0, 0.494);
 }
 
 .bookmark h2 {
     font-size: 1.25rem;
     margin: 0 0 0.5rem;
-    color: #ffffff;
+    color: var(--main-text);
 }
 
 .bookmark a {
-    color: #7aa5ff;
+    color: var(--secondary);
     text-decoration: none;
     transition: color 0.3s;
 }
 
 .bookmark a:hover {
-    color: #a1c4ff;
+    color: var(--secondary-hover);
 }
 
 .bookmark p {
     margin: 0.5rem 0;
-    color: #b0b0c5;
-}
-
-/* .popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.popup-overlay.active {
-    display: flex;
-    opacity: 1;
-} */
-
-/* .popup-content {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    text-align: center;
-    position: relative;
-    animation: popup-anim 0.3s ease-in-out;
-}
-
-.popup-content h2,
-.popup-content p {
-    margin-bottom: 10px;
-} */
-
-/* Styling for the add bookmark form */
-#add-bookmark-popup .popup-content {
-    width: 400px;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#add-bookmark-popup input,
-#add-bookmark-popup select,
-#add-bookmark-popup textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-}
-
-#add-bookmark-popup .button-group button {
-    margin-top: 10px;
-    padding: 10px 15px;
-    background: #007BFF;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#add-bookmark-popup .button-group button:hover {
-    background: #0056b3;
-}
-
-
-@keyframes popup-anim {
-    0% {
-        transform: scale(0.9);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-
-/* Footer */
-.footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #29293d;
-    border-top: 1px solid #38384e;
-    color: #a0a0b5;
+    color: var(--sub-text);
 }
 
 /* View Button Style */
 .view-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #7aa5ff; /* Blue color */
-    color: white;
+    top: 0px;
+    right: 0px;
+    margin: 1rem;
+    background: none;
+    color: var(--main-text);
     border: none;
     padding: 6px 12px;
     cursor: pointer;
     border-radius: 4px;
     font-size: 0.875rem;
-    transition: background-color 0.3s ease-in-out;
 }
 
-.view-btn:hover {
-    background-color: #5c87ff; /* Lighter blue on hover */
-}
-
-
-/* Popup Overlay */
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Darker background */
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* Popup Active State */
-.popup-overlay.active {
-    display: flex;
-    opacity: 1;
-}
-
-/* Popup Content */
-.popup-content {
-    background-color: #29293d; /* Darker background */
-    color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 400px;
-    width: 100%;
-    text-align: left;
-    position: relative;
-    animation: popup-anim 0.3s ease-in-out;
-}
-
-/* Popup Title */
-.popup-content h2 {
-    font-size: 1.25rem;
-    color: #7aa5ff; /* Blue color for the title */
-    margin-bottom: 15px;
-}
-
-/* Popup URL */
-.popup-content p a {
-    color: #7aa5ff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.popup-content p a:hover {
-    color: #a1c4ff;
-}
-
-/* Popup Details */
-.popup-content p {
-    margin: 10px 0;
-    font-size: 1rem;
-    color: #b0b0c5; /* Light gray for text */
-}
-
-.popup-content p span {
-    font-weight: bold;
-    color: #fff;
-}
-
-/* Popup Close Button */
-.popup-close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #ff5c5c; /* Red close button */
-    color: white;
-    border: none;
-    padding: 8px 12px;
+.view-btn img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: invert(1) grayscale(100%) brightness(100%) sepia(0);
     cursor: pointer;
-    border-radius: 50%;
-    font-size: 1.25rem;
-    transition: background-color 0.3s;
+    color: var(--primary);
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-.popup-close:hover {
-    background-color: #ff2b2b;
-}
-
-/* Animation for popup fade-in */
-@keyframes popup-anim {
-    0% {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+.view-btn img:hover {
+    transform: scale(1.2);
 }

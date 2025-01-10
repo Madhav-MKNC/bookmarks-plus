@@ -71,9 +71,9 @@ saveBtn.addEventListener("click", (e) => {
         // Save the updated bookmark data
         const updatedBookmark = {
             ...bookmark,
-            title: document.getElementById("title").value,
-            url: document.getElementById("url").value,
-            category: document.getElementById("category").value,
+            title: document.getElementById("title").value.trim(),
+            url: document.getElementById("url").value.trim(),
+            category: document.getElementById("category").value.trim(),
             tags: document
                 .getElementById("tags")
                 .value.split(",")
