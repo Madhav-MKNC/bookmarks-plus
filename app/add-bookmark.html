@@ -5,13 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Add New Bookmark</title>
         <link rel="stylesheet" href="bookmark.css" />
+        <style>
+            /* Custom styles for invalid fields */
+            input:invalid,
+            textarea:invalid {
+                border: 2px solid red;
+                background-color: #f8d7da; /* Light red */
+                color: #721c24; /* Dark red text for contrast */
+            }
+
+            input:valid,
+            textarea:valid {
+                border: 2px solid green;
+                background-color: #d4edda; /* Light green */
+                color: #155724; /* Dark green text for contrast */
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <div class="form-container">
                 <div class="left-column">
                     <h2>Add New Bookmark</h2>
-                    <form>
+                    <form id="bookmark-form">
                         <label for="title">Title *</label>
                         <input
                             type="text"
@@ -44,10 +60,20 @@
                         />
 
                         <div class="form-actions">
-                            <button type="button" class="cancel-btn">
+                            <button
+                                type="button"
+                                class="cancel-btn"
+                                id="cancel-btn"
+                            >
                                 Cancel
                             </button>
-                            <button type="submit" class="save-btn">Save</button>
+                            <button
+                                type="submit"
+                                class="save-btn"
+                                id="save-btn"
+                            >
+                                Save
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -61,7 +87,7 @@
             </div>
         </div>
 
-        <!-- Include external JavaScript -->
+        <script src="save-to-file.js"></script>
         <script src="add-bookmark.js"></script>
     </body>
 </html>
