@@ -17,5 +17,7 @@ document
 document
     .getElementById("dashboard")
     .addEventListener("click", () => {
-        chrome.tabs.create({ url: "app/dashboard.html" });
+        // chrome.tabs.create({ url: "app/dashboard.html" });
+        const url = chrome.runtime.getURL('app/dashboard.html');
+        window.open(url, 'bookmarks-plus-dashboard');
     });

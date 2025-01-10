@@ -40,8 +40,9 @@ saveBtn.addEventListener("click", (e) => {
         // Save to a timestamped file (your implementation might differ)
         saveBookmarksToTimestampedFile();
 
-        // Optionally, you can redirect the user back to the list page
-        window.location.href = "dashboard.html"; // Modify this as needed
+        const url = chrome.runtime.getURL('app/dashboard.html');
+        window.close();
+        window.open(url, 'bookmarks-plus-dashboard');
     } else {
         alert("Please fill in all required fields correctly.");
     }
