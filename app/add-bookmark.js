@@ -41,7 +41,7 @@ saveBtn.addEventListener("click", (e) => {
         saveBookmarksToTimestampedFile();
 
         // Optionally, you can redirect the user back to the list page
-        window.location.href = "dashboard/index.html"; // Modify this as needed
+        window.location.href = "dashboard.html"; // Modify this as needed
     } else {
         alert("Please fill in all required fields correctly.");
     }
