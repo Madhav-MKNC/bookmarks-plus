@@ -46,7 +46,7 @@ function saveBookmarksToTimestampedFile() {
         String(now.getSeconds()).padStart(2, '0')
     ].join('_');
 
-    const timestampedFilename = `bookmarks-plus-storage/bookmarks_${Timestamp}.json`; // Save in the 'storage' folder
+    const timestampedFilename = `bookmarks-plus-storage/bookmarks_${Timestamp}.json`;
     const blob = new Blob([newData], { type: 'application/json' });
     const timestampedUrl = URL.createObjectURL(blob);
 

@@ -13,16 +13,17 @@ function renderBookmarks(filteredBookmarks) {
         bookmarkElement.classList.add("bookmark");
         bookmarkElement.setAttribute("data-id", bookmark.id);
 
-        // const tagsHtml = bookmark.tags.map(tag => `<p class="tag">${tag}</p>`).join("");
-        const blocksHtml = `<p class="bookmark-category">${bookmark.category}</p>` +
-            bookmark.tags.map(tag => `<p class="tag">${tag}</p>`).join("");
+        const tagsHtml = bookmark.tags.length ? bookmark.tags.map(tag => `<p class="tag">${tag}</p>`).join("") : "";
+        const categoryHtml = bookmark.category ? `<p class="bookmark-category">${bookmark.category}</p>` : "";
+        const blocksHtml = categoryHtml + tagsHtml;
+        const notesHtml = bookmark.notes ? `<p class="bookmark-notes">${bookmark.notes}</p>` : "";
 
         bookmarkElement.innerHTML = `
             <div class="bookmark-content bookmark-card">
                 <h2 class="bookmark-title">${bookmark.title}</h2>
                 <p class="bookmark-url"><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></p>
-                <div class="blocks">${blocksHtml}</div>
-                <p class="bookmark-notes">${bookmark.notes}</p>
+                ${blocksHtml ? `<div class="blocks">${blocksHtml}</div>` : ""}
+                ${notesHtml}
             </div>
             <button class="view-btn"><img src="../assets/open.png" alt=""></button>
         `;
@@ -137,7 +138,6 @@ addBookmarkBtn.addEventListener("click", () => {
     const viewUrl = 'add-bookmark.html';
     window.open(viewUrl, '_blank');
 });
-
 
 window.addEventListener("storage", function (event) {
     if (event.key === "bookmarks") {

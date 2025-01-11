@@ -13,6 +13,20 @@
     --dropdown-bg: rgb(31, 29, 37);
 }
 
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.1);
+}
+
+select::-webkit-scrollbar {
+    width: 8px;
+}
+
+select::-webkit-scrollbar-thumb {
+    background: var(--dropdown-bg);
+    border-radius: 10px;
+}
+
 body {
     font-family: "Inter", Arial, sans-serif;
     margin: 0;
@@ -72,12 +86,13 @@ body {
 
 .search-container input:focus {
     background-color: var(--item-bg-focus);
+    border: 1px solid var(--primary);
 }
 
 .search-container select:focus {
     background-color: var(--background);
     color: var(--main-text);
-    border: 1px solid var(--border-2);
+    border: 1px solid var(--primary);
 }
 
 .header button {

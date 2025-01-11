@@ -1,12 +1,7 @@
-// Parse the `url` query parameter from the current page's URL
 const params = new URLSearchParams(window.location.search);
 const passedUrl = params.get("url");
 
-// Check if a URL was passed
-if (passedUrl) {
-    // Populate the URL input field with the parsed URL
-    document.getElementById("url").value = passedUrl;
-}
+if (passedUrl) { document.getElementById("url").value = passedUrl; }
 
 const saveBtn = document.getElementById("save-btn");
 const cancelBtn = document.getElementById("cancel-btn");
@@ -14,13 +9,11 @@ const inputs = document.querySelectorAll("input, textarea");
 const form = document.getElementById("bookmark-form");
 
 saveBtn.addEventListener("click", (e) => {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
 
-    // Validate form fields
     if (form.checkValidity()) {
-        // Collect the data from the form fields
         const newBookmark = {
-            id: Date.now(), // Generate a unique ID for the bookmark
+            id: Date.now(),
             title: document.getElementById("title").value,
             url: document.getElementById("url").value,
             category: document.getElementById("category").value,
@@ -28,16 +21,9 @@ saveBtn.addEventListener("click", (e) => {
             notes: document.getElementById("notes").value,
         };
 
-        // Get existing bookmarks from localStorage
         const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-
-        // Add the new bookmark to the list
         storedBookmarks.push(newBookmark);
-
-        // Save the updated bookmarks back to localStorage
         localStorage.setItem("bookmarks", JSON.stringify(storedBookmarks));
-
-        // Save to a timestamped file (your implementation might differ)
         saveBookmarksToTimestampedFile();
 
         const url = chrome.runtime.getURL('app/dashboard.html');

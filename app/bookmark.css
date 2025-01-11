@@ -104,7 +104,8 @@ textarea::placeholder {
     cursor: pointer;
 }
 
-.cancel-btn, .delete-btn {
+.cancel-btn,
+.delete-btn {
     background-color: #444452;
     color: #e4e4e7;
 }
@@ -124,7 +125,8 @@ textarea::placeholder {
     color: #ffffff;
 }
 
-.cancel-btn:hover, .delete-btn:hover {
+.cancel-btn:hover,
+.delete-btn:hover {
     background-color: #555567;
 }
 
@@ -134,4 +136,18 @@ textarea::placeholder {
 
 .hidden {
     display: none;
+}
+
+input:invalid,
+textarea:invalid {
+    border: 2px solid red;
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+input:valid,
+textarea:valid {
+    border: 2px solid green;
+    background-color: #d4edda;
+    color: #155724;
 }
