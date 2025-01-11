@@ -10,7 +10,7 @@
     "action": {
         "default_popup": "popup/popup.html",
         "default_icon": {
-            "128": "assets/icons/icon.png"
+            "128": "assets/icon.png"
         },
         "default_title": "Bookmarks-plus"
     },

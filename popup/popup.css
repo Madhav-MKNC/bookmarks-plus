@@ -1,41 +1,57 @@
-/* General styles for minimal and modern UI */
+:root {
+    --primary: rgb(228, 60, 110);
+    --primary-hover: rgba(228, 53, 105, 0.7);
+    --main-text: rgb(228, 228, 228);
+    --main-text-hover: rgba(228, 228, 228, 0.7);
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+    width: 280px;
+    padding: 16px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-width: 250px;
-    min-height: 150px;
-    background-color: #f4f4f9;
-    color: #333;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 10px solid rgba(0, 0, 0, 0.183);
+    background: linear-gradient(to bottom right, rgb(60, 20, 101), rgb(80, 36, 61));
+    margin: 0;
 }
 
 h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--primary);
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    margin: 10px;
     margin-bottom: 20px;
 }
 
 button {
     width: 80%;
-    padding: 10px 15px;
+    padding: 12px 16px;
     margin: 10px 0;
-    font-size: 1rem;
     font-weight: bold;
-    color: #fff;
-    background-color: #007bff;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
-    background-color: #0056b3;
+.add-bookmark {
+    color: var(--primary);
+    background-color: var(--main-text);
 }
 
-button:active {
-    background-color: #003d80;
+.add-bookmark:hover {
+    background-color: var(--main-text-hover);
+}
+
+.dashboard {
+    color: var(--main-text);
+    background-color: var(--primary);
+}
+
+.dashboard:hover {
+    background-color: var(--primary-hover);
 }
