@@ -13,16 +13,18 @@ function renderBookmarks(filteredBookmarks) {
         bookmarkElement.classList.add("bookmark");
         bookmarkElement.setAttribute("data-id", bookmark.id);
 
+        // const tagsHtml = bookmark.tags.map(tag => `<p class="tag">${tag}</p>`).join("");
+        const blocksHtml = `<p class="bookmark-category">${bookmark.category}</p>` +
+            bookmark.tags.map(tag => `<p class="tag">${tag}</p>`).join("");
+
         bookmarkElement.innerHTML = `
             <div class="bookmark-content bookmark-card">
                 <h2 class="bookmark-title">${bookmark.title}</h2>
                 <p class="bookmark-url"><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></p>
-                <p class="bookmark-category">Category: ${bookmark.category}</p>
-                <p class="bookmark-tags">Tags: ${bookmark.tags.join(", ")}</p>
+                <div class="blocks">${blocksHtml}</div>
                 <p class="bookmark-notes">${bookmark.notes}</p>
             </div>
             <button class="view-btn"><img src="../assets/open.png" alt=""></button>
-            
         `;
         bookmarksContainer.appendChild(bookmarkElement);
     });
