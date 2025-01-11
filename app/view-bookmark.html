@@ -8,9 +8,17 @@
     </head>
     <body>
         <div class="container">
+            <h2>Add New Bookmark</h2>
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" id="cancel-btn">
+                    Cancel
+                </button>
+                <button type="submit" class="save-btn" id="save-btn">
+                    Save
+                </button>
+            </div>
             <div class="form-container">
                 <div class="left-column">
-                    <h2>View Bookmark</h2>
                     <form id="bookmark-form">
                         <label for="title">Title *</label>
                         <input
@@ -45,30 +53,6 @@
                             value="tag1, tag2, tag3"
                             readonly
                         />
-
-                        <div class="form-actions">
-                            <button
-                                type="button"
-                                class="edit-btn"
-                                id="edit-btn"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                type="button"
-                                class="delete-btn hidden"
-                                id="delete-btn"
-                            >
-                                Delete
-                            </button>
-                            <button
-                                type="submit"
-                                class="save-btn hidden"
-                                id="save-btn"
-                            >
-                                Save
-                            </button>
-                        </div>
                     </form>
                 </div>
                 <div class="right-column">

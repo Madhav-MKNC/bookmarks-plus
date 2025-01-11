@@ -5,15 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Add New Bookmark</title>
         <link rel="stylesheet" href="bookmark.css" />
-        <style>
-
-        </style>
     </head>
     <body>
         <div class="container">
+            <h2>Add New Bookmark</h2>
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" id="cancel-btn">
+                    Cancel
+                </button>
+                <button type="submit" class="save-btn" id="save-btn">
+                    Save
+                </button>
+            </div>
             <div class="form-container">
                 <div class="left-column">
-                    <h2>Add New Bookmark</h2>
                     <form id="bookmark-form">
                         <label for="title">Title *</label>
                         <input
@@ -44,23 +49,6 @@
                             id="tags"
                             placeholder="tag1, tag2, tag3"
                         />
-
-                        <div class="form-actions">
-                            <button
-                                type="button"
-                                class="cancel-btn"
-                                id="cancel-btn"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="submit"
-                                class="save-btn"
-                                id="save-btn"
-                            >
-                                Save
-                            </button>
-                        </div>
                     </form>
                 </div>
                 <div class="right-column">
