@@ -51,4 +51,4 @@ We welcome contributions! If you'd like to improve **Bookmarks-plus**, feel free
 
 For any questions or suggestions, feel free to contact the developer:
 
-- **Developer**: [Madhav](https://x.com/5mknc5)
+**Developer**: [Madhav](https://x.com/5mknc5)
