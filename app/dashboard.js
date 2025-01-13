@@ -166,6 +166,7 @@ function populateCategoryFilter() {
         const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
         const storedCategories = JSON.parse(localStorage.getItem('bookmarks-categories')) || [];
         const categories = [...new Set([...storedBookmarks.map(bookmark => bookmark.category), ...storedCategories])];
+        localStorage.setItem('bookmarks-categories-current', JSON.stringify(categories));
         categoryFilter.innerHTML = '<option value="">All Categories</option>';
 
         categories.forEach(category => {

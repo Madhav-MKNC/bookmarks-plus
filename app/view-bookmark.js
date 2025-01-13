@@ -116,7 +116,7 @@ function delete_bookmark() {
     }
 }
 
-const categories = JSON.parse(localStorage.getItem('bookmarks-categories')) || [];
+const categories = JSON.parse(localStorage.getItem('bookmarks-categories-current')) || [];
 
 const categoryInput = document.getElementById('category');
 categoryInput.addEventListener('input', searchOptions);
