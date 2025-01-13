@@ -12,7 +12,7 @@ function handleFile(file) {
                 throw new Error("Invalid file: signature mismatch.");
             }
         } catch (e) {
-            console.error("Error loading the file:", e);
+            console.log("⚠️ Error loading the file:", e);
             alert("The file is invalid or not in the correct format❗");
         }
     };
@@ -41,7 +41,7 @@ function saveBookmarksToTimestampedFile() {
     const newData = localStorage.getItem('bookmarks');
 
     if (!newData) {
-        console.error("No data found in localStorage under 'bookmarks'.");
+        console.log("⚠️ No data found in localStorage under 'bookmarks'.");
         return;
     }
 
