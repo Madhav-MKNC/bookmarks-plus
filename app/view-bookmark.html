@@ -41,13 +41,15 @@
                         />
 
                         <label for="category">Category *</label>
-                        <input
-                            type="text"
-                            id="category"
-                            value="Personal"
-                            readonly
-                            required
-                        />
+                        <div class="dropdown-container">
+                            <input
+                                type="text"
+                                id="category"
+                                placeholder="e.g., Work, Personal, Reading"
+                                required
+                            />
+                            <div class="dropdown-list" id="dropdownList"></div>
+                        </div>
 
                         <label for="tags">Tags</label>
                         <input

@@ -171,3 +171,37 @@ textarea:valid {
     background-color: #d4edda;
     color: #155724;
 }
+
+.dropdown-container {
+    position: relative;
+}
+
+#customText {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #d4edda;
+    box-sizing: border-box;
+}
+
+.dropdown-list {
+    position: absolute;
+    width: 100%;
+    border: 2px solid #d4edda;
+    background-color: #d4edda;
+    color: #155724;
+    display: none;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.dropdown-list div {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-list div:hover {
+    color: var(--main-text);
+    background-color: var(--primary);
+}

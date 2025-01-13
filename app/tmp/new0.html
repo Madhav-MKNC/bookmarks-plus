@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Improved Searchable Dropdown</title>
+  <style>
+    .dropdown-container {
+      position: relative;
+      width: 200px;
+    }
+    #customText {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .dropdown-list {
+      position: absolute;
+      width: 100%;
+      background-color: white;
+      border: 1px solid #ccc;
+      display: none;
+      max-height: 150px;
+      overflow-y: auto;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+    .dropdown-list div {
+      padding: 10px;
+      cursor: pointer;
+    }
+    .dropdown-list div:hover {
+      background-color: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="dropdown-container">
+  <input type="text" id="customText" placeholder="Type to search or enter custom option" oninput="searchOptions()">
+  <div class="dropdown-list" id="dropdownList"></div>
+</div>
+
+<script>
+  const options = ['Option 1', 'Option 2', 'Option 3'];
+
+  // Function to handle input and show options based on search
+  function searchOptions() {
+    const inputText = document.getElementById('customText').value.toLowerCase();
+    const dropdownList = document.getElementById('dropdownList');
+    const filteredOptions = options.filter(option => option.toLowerCase().includes(inputText));
+
+    // If there are matches, display them
+    if (filteredOptions.length > 0) {
+      dropdownList.style.display = 'block';
+      populateDropdown(filteredOptions);
+    } else {
+      dropdownList.style.display = 'none';
+    }
+  }
+
+  // Function to populate the dropdown list with matching options
+  function populateDropdown(items) {
+    const dropdownList = document.getElementById('dropdownList');
+    dropdownList.innerHTML = ''; // Clear previous options
+
+    items.forEach(item => {
+      const optionDiv = document.createElement('div');
+      optionDiv.textContent = item;
+      optionDiv.onclick = () => {
+        document.getElementById('customText').value = item; // Set the selected option as the input value
+        dropdownList.style.display = 'none'; // Hide the dropdown after selection
+      };
+      dropdownList.appendChild(optionDiv);
+    });
+  }
+
+  // Event listener to close the dropdown if the user clicks outside the dropdown
+  document.addEventListener('click', (e) => {
+    const dropdownList = document.getElementById('dropdownList');
+    if (!dropdownList.contains(e.target) && e.target !== document.getElementById('customText')) {
+      dropdownList.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html>
