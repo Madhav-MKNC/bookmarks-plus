@@ -1,4 +1,43 @@
 // Load bookmarks from localStorage and file
+loadFileBtn = document.getElementById("load-file-btn");
+loadFileBtn.addEventListener("click", () => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+
+    input.addEventListener("change", () => {
+        if (input.files.length > 0) {
+            const file = input.files[0];
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const content = JSON.parse(reader.result);
+
+                    // Validate the file signature
+                    if (content.fileSignature === "BookmarksPlusSignature_v1") {
+                        localStorage.setItem(
+                            "bookmarks-loaded-from-file",
+                            JSON.stringify(content.bookmarks)
+                        );
+                        alert("File loaded successfully! ✅");
+                    } else {
+                        throw new Error("Invalid file: signature mismatch.");
+                    }
+                } catch (e) {
+                    console.error("Error loading the file:", e);
+                    alert("The file is invalid or not in the correct format❗");
+                }
+            };
+            reader.readAsText(file);
+        } else {
+            localStorage.setItem("bookmarks-loaded-from-file", JSON.stringify([]));
+        }
+    });
+
+    input.click();
+});
+
 fetchBookmarksAndStore();
 const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 

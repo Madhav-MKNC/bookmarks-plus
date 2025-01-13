@@ -1,3 +1,11 @@
+// Initialize empty localStorage value for optional use
+// if (!localStorage.getItem("bookmarks-loaded-from-file")) {
+//     localStorage.setItem(
+//         "bookmarks-loaded-from-file",
+//         JSON.stringify([])
+//     );
+// }
+
 function fetchJsonFile(url) {
     return fetch(url)
         .then(response => {
@@ -46,8 +54,14 @@ function saveBookmarksToTimestampedFile() {
         String(now.getSeconds()).padStart(2, '0')
     ].join('_');
 
+    const fileContent = {
+        fileSignature: "BookmarksPlusSignature_v1", // Unique identifier
+        timestamp: now.toISOString(),
+        bookmarks: JSON.parse(newData),
+    };
+
     const timestampedFilename = `bookmarks-plus-storage/bookmarks_${Timestamp}.json`;
-    const blob = new Blob([newData], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(fileContent)], { type: 'application/json' });
     const timestampedUrl = URL.createObjectURL(blob);
 
     chrome.downloads.download({

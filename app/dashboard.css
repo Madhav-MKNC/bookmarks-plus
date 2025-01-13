@@ -47,7 +47,7 @@ body {
 }
 
 .header {
-    padding: 0.5rem;
+    padding: 1rem;
     padding-inline: 0;
     display: flex;
     justify-content: space-between;
@@ -60,15 +60,27 @@ body {
     font-style: italic;
     font-size: 25px;
     color: var(--primary);
+    margin: 8px;
     /* padding: 10px; */
     /* border: 1px solid rgba(255, 255, 255, 0.1); */
 }
 
+.logo-container,
 .search-container {
     /* margin: 1.5rem; */
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+}
+
+.logo-container button {
+    margin: 5px;
+    background-color: var(--border-2) !important;
+    color: var(--main-text) !important;
+}
+
+.logo-container button:hover {
+    background-color: var(--border-1) !important;
 }
 
 .search-container input,
