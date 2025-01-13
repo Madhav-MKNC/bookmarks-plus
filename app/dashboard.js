@@ -1,4 +1,4 @@
-fetchBookmarksAndStore();
+fetchData();
 const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 
 const bookmarksContainer = document.getElementById("bookmarks-container");
@@ -110,9 +110,8 @@ categoryFilter.addEventListener("change", () => {
 function populateCategoryFilter() {
     const categoryFilter = document.getElementById("category-filter");
     const storedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-
-    const categories = [...new Set(storedBookmarks.map(bookmark => bookmark.category))];
-    categoryFilter.innerHTML = '';
+    const storedCategories = JSON.parse(localStorage.getItem('bookmarks-categories')) || [];
+    const categories = [...new Set([...storedBookmarks.map(bookmark => bookmark.category), ...storedCategories])];
     categoryFilter.innerHTML = '<option value="">All Categories</option>';
 
     categories.forEach(category => {

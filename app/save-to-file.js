@@ -19,7 +19,17 @@ function handleFile(file) {
     reader.readAsText(file);
 }
 
-function fetchBookmarksAndStore() {
+function setDefaultCategories() {
+    const defaultCategories = [
+        "AGI/AEI", "web scraping", "LLMs", "blockchain", "prompts", "agents", "ether", "startups", "AI",
+        "ML/DL", "landing-pages", "automation", "productivity", "infosec", "VPS", "neuroscience", "ether"
+    ];
+
+    localStorage.setItem('bookmarks-categories', JSON.stringify(defaultCategories));
+}
+
+function fetchData() {
+    setDefaultCategories()
     const existingBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
     const loadedBookmarks = JSON.parse(localStorage.getItem('bookmarks-loaded-from-file')) || [];
     const mergedBookmarks = [...new Map([...existingBookmarks, ...loadedBookmarks].map(item => [JSON.stringify(item), item])).values()];
