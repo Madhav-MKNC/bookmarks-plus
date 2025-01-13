@@ -22,12 +22,5 @@
             },
             "description": "Open bookmark form popup"
         }
-    },
-    "host_permissions": ["http://*/*", "https://*/*"],
-    "web_accessible_resources": [
-        {
-            "resources": [".storage/saved_bookmarks.json"],
-            "matches": ["<all_urls>"]
-        }
-    ]
+    }
 }

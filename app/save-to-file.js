@@ -1,39 +1,30 @@
-// Initialize empty localStorage value for optional use
-// if (!localStorage.getItem("bookmarks-loaded-from-file")) {
-//     localStorage.setItem(
-//         "bookmarks-loaded-from-file",
-//         JSON.stringify([])
-//     );
-// }
+function handleFile(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+        try {
+            const content = JSON.parse(reader.result);
 
-function fetchJsonFile(url) {
-    return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch JSON from ${url}: ${response.status} ${response.statusText}`);
+            // Validate the file signature
+            if (content.fileSignature === "BookmarksPlusSignature_v1") {
+                localStorage.setItem("bookmarks-loaded-from-file", JSON.stringify(content.bookmarks));
+                alert("File loaded successfully! ✅");
+            } else {
+                throw new Error("Invalid file: signature mismatch.");
             }
-            return response.json();
-        });
-}
-
-function storeBookmarksInLocalStorage(bookmarks) {
-    if (!Array.isArray(bookmarks)) {
-        throw new Error('Invalid data format: Expected an array.');
-    }
-    const existingBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
-    const mergedBookmarks = [...new Map([...existingBookmarks, ...bookmarks].map(item => [JSON.stringify(item), item])).values()];
-    localStorage.setItem('bookmarks', JSON.stringify(mergedBookmarks));
-    console.log('Bookmarks successfully merged and stored in localStorage.');
+        } catch (e) {
+            console.error("Error loading the file:", e);
+            alert("The file is invalid or not in the correct format❗");
+        }
+    };
+    reader.readAsText(file);
 }
 
 function fetchBookmarksAndStore() {
-    const jsonUrl = chrome.runtime.getURL('.storage/saved_bookmarks.json');
-
-    fetchJsonFile(jsonUrl)
-        .then(storeBookmarksInLocalStorage)
-        .catch(error => {
-            console.error('Error loading the JSON file:', error);
-        });
+    const existingBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    const loadedBookmarks = JSON.parse(localStorage.getItem('bookmarks-loaded-from-file')) || [];
+    const mergedBookmarks = [...new Map([...existingBookmarks, ...loadedBookmarks].map(item => [JSON.stringify(item), item])).values()];
+    localStorage.setItem('bookmarks', JSON.stringify(mergedBookmarks));
+    console.log('Bookmarks successfully loaded.');
 }
 
 function saveBookmarksToTimestampedFile() {

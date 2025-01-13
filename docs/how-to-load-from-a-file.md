@@ -1,3 +1,5 @@
+# --- OUTDATED ---
+
 # How to load data from a previously saved file (.json)
 
 - Rename the file to saved_bookmarks.json
