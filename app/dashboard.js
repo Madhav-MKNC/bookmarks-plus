@@ -152,14 +152,16 @@ loadFileBtn.addEventListener("click", () => {
     input.addEventListener("change", () => {
         if (input.files.length > 0) {
             const file = input.files[0];
+            console.log('File selected:', file.name);
             handleFile(file);
         } else {
+            console.log('No file selected, setting empty bookmarks.');
             localStorage.setItem("bookmarks-loaded-from-file", JSON.stringify([]));
         }
+        location.reload();
     });
 
     input.click();
-    location.reload();
 });
 
 renderBookmarks(storedBookmarks);
