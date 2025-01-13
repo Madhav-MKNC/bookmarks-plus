@@ -1,12 +1,18 @@
-
-const categories = JSON.parse(localStorage.getItem('bookmarks-categories-current')) || [];
+const categories = JSON.parse(localStorage.getItem('bookmarks-categories')) || [];
 
 const categoryInput = document.getElementById('category');
+// const dropdownList = document.getElementById('dropdownList');
 categoryInput.addEventListener('input', searchOptions);
+
+categoryInput.addEventListener('focus', () => {
+    if (categories.length > 0) {
+        dropdownList.style.display = 'block';
+        populateDropdown(categories);
+    }
+});
 
 function searchOptions() {
     const inputText = categoryInput.value.toLowerCase();
-    const dropdownList = document.getElementById('dropdownList');
     const filteredOptions = categories.filter(option => option.toLowerCase().includes(inputText));
 
     if (filteredOptions.length > 0) {
@@ -18,7 +24,6 @@ function searchOptions() {
 }
 
 function populateDropdown(items) {
-    const dropdownList = document.getElementById('dropdownList');
     dropdownList.innerHTML = '';
 
     items.forEach(item => {
@@ -33,7 +38,6 @@ function populateDropdown(items) {
 }
 
 document.addEventListener('click', (e) => {
-    const dropdownList = document.getElementById('dropdownList');
     if (!dropdownList.contains(e.target) && e.target !== categoryInput) {
         dropdownList.style.display = 'none';
     }

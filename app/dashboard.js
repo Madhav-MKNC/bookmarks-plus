@@ -93,7 +93,7 @@ bookmarksContainer.addEventListener("click", (event) => {
             if (zoomedBookmark === bookmarkElement) { revertZoom(); }
             else {
                 if (zoomedBookmark) { revertZoom(); }
-                bookmarkElement.style.transform = "scale(1.5)";
+                bookmarkElement.style.transform = "scale(1.05)";
                 bookmarkElement.style.zIndex = "999";
                 zoomedBookmark = bookmarkElement;
             }
