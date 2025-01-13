@@ -213,6 +213,19 @@ body {
     border-radius: 2px;
 }
 
+.bookmark-card-item {
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bookmark-url a {
+    word-break: break-all;
+}
+
 .view-btn {
     position: absolute;
     top: 0px;
