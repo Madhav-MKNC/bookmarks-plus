@@ -6,20 +6,26 @@
 }
 
 body {
-    width: 280px;
+    font-family: "Inter", Arial, sans-serif;
+    width: 300px;
     padding: 16px;
     display: flex;
     align-items: center;
     flex-direction: column;
     border-radius: 8px;
-    border: 10px solid rgba(0, 0, 0, 0.183);
-    background: linear-gradient(to bottom right, rgb(60, 20, 101), rgb(80, 36, 61));
+    border: 10px solid rgba(0, 0, 0, 0.6);
     margin: 0;
+    backdrop-filter: blur(2px);
+    background-size: cover;
+    background-image: url('../assets/bg.jpg'),
+        linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0)),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0));
 }
 
 h1 {
     font-size: 1.8rem;
-    color: var(--primary);
+    font-weight: bolder;
+    color: var(--main-text);
     font-family: 'Georgia', serif;
     font-style: italic;
     margin: 10px;

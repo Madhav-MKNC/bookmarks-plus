@@ -1,8 +1,8 @@
 :root {
     --primary: rgb(228, 60, 110);
     --primary-hover: rgba(228, 53, 105, 0.8);
-    --secondary: rgb(170, 109, 223);
-    --secondary-hover: rgb(170, 109, 223, 0.8);
+    --secondary: rgb(64, 11, 121);
+    --secondary-hover: rgb(64, 11, 121, 0.8);
     --background: rgb(47, 45, 57);
     --main-text: rgb(228, 228, 228);
     --sub-text: rgb(194, 189, 189);
@@ -30,7 +30,7 @@ select::-webkit-scrollbar-thumb {
 }
 
 body {
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
     font-family: "Inter", Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -111,8 +111,8 @@ body {
 }
 
 .search-container select:focus {
-    /* background-color: var(--background); */
-    background-color: var(--dropdown-bg);
+    background-color: var(--secondary);
+    /* background-color: var(--dropdown-bg); */
     color: var(--main-text);
     border: 1px solid var(--primary);
 }
@@ -149,7 +149,7 @@ body {
     font-size: 1rem;
     /* background: var(--item-bg); */
     backdrop-filter: blur(20px);
-    background-color: var(--dark-bg); 
+    background-color: var(--dark-bg);
     padding: 1rem;
     border: 1px solid var(--border-1);
     border-radius: 8px;
