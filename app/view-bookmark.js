@@ -30,18 +30,24 @@ deleteBtn.addEventListener("click", () => {
     }
 });
 
-const urlParams = new URLSearchParams(window.location.search);
-const bookmarkId = parseInt(urlParams.get("id"));
+function get_urlParams() { return new URLSearchParams(window.location.search) }
 
-let storedBookmarks = [];
-try {
-    storedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-} catch (error) {
-    console.log("⚠️ Error parsing bookmarks from localStorage:", error);
+function get_bookmarkId() { return parseInt(get_urlParams().get("id")) }
+
+function get_storedBookmarks() {
+    let bookmarks = [];
+    try { bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || []; }
+    catch (error) { console.log("⚠️ Error parsing bookmarks from localStorage:", error); }
+    return bookmarks;
 }
 
-const bookmark = storedBookmarks.find((b) => b.id === bookmarkId);
+function get_bookmark() {
+    const bookmarkId = get_bookmarkId();
+    const storedBookmarks = get_storedBookmarks();
+    return storedBookmarks.find((b) => b.id === bookmarkId);
+}
 
+const bookmark = get_bookmark();
 if (bookmark) {
     try {
         document.getElementById("title").value = bookmark.title;
@@ -88,10 +94,11 @@ saveBtn.addEventListener("click", (e) => {
                     .getElementById("tags")
                     .value.split(",")
                     .map((tag) => tag.trim()),
-                notes: document.getElementById("notes").value,
+                notes: document.getElementById("notes").value.trim(),
             };
 
-            const updatedBookmarks = storedBookmarks.map((b) => b.id === bookmarkId ? updatedBookmark : b);
+            const storedBookmarks = get_storedBookmarks();
+            const updatedBookmarks = storedBookmarks.map((b) => b.id === bookmark.id ? { ...b, ...updatedBookmark } : b);
             localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
             saveBookmarksToTimestampedFile();
         } else {
@@ -106,6 +113,8 @@ function delete_bookmark() {
     try {
         const confirmation = confirm("Are you sure you want to delete this bookmark?");
         if (confirmation) {
+            const bookmarkId = get_bookmarkId();
+            const storedBookmarks = get_storedBookmarks();
             const updatedBookmarks = storedBookmarks.filter((b) => b.id !== bookmarkId);
             localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
             saveBookmarksToTimestampedFile();

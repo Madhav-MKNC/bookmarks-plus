@@ -21,11 +21,11 @@ saveBtn.addEventListener("click", (e) => {
         if (form.checkValidity()) {
             const newBookmark = {
                 id: Date.now(),
-                title: document.getElementById("title").value,
-                url: document.getElementById("url").value,
-                category: document.getElementById("category").value,
+                title: document.getElementById("title").value.trim(),
+                url: document.getElementById("url").value.trim(),
+                category: document.getElementById("category").value.trim(),
                 tags: document.getElementById("tags").value.split(",").map(tag => tag.trim()),
-                notes: document.getElementById("notes").value,
+                notes: document.getElementById("notes").value.trim(),
             };
 
             const storedBookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
