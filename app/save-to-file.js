@@ -48,6 +48,7 @@ function fetchData() {
         const loadedBookmarks = JSON.parse(localStorage.getItem('bookmarks-loaded-from-file')) || [];
         const mergedBookmarks = [...new Map([...existingBookmarks, ...loadedBookmarks].map(item => [JSON.stringify(item), item])).values()];
         localStorage.setItem('bookmarks', JSON.stringify(mergedBookmarks));
+        localStorage.setItem("bookmarks-loaded-from-file", JSON.stringify([]));
         console.log('Bookmarks successfully loaded.');
     } catch (e) {
         console.log("⚠️ Error fetching or merging bookmarks:", e);
