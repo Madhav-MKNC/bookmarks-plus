@@ -99,6 +99,7 @@ body {
     border: none;
     border-radius: 5px;
     font-weight: bolder;
+    font-size: large;
     outline: none;
     transition: background 0.3s;
     background-color: var(--border-2);
