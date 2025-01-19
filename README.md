@@ -44,6 +44,16 @@ git clone https://github.com/Madhav-MKNC/bookmarks-plus
 
 ---
 
+# BONUS
+
+***If you don't want to install a chrome extension and use a Github hosted static app instead:***
+
+[saved-stuff.github.io](saved-stuff.github.io)
+
+## **Note** for Non-Techies
+
+Both the apps (chrome extension and github hosted app) are completely safe and secure (open source). Both use your Chrome Browser's *localStorage* for storing your stuff and since they both are just simple static apps you don't need to worry about any leaks. **NOTHING LIKE THAT EXISTS**. Just a locally hosted app.
+
 ### License
 
 This project is licensed under the Apache License, Version 2.0, January 2004.  
