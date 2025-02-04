@@ -30,7 +30,7 @@ select::-webkit-scrollbar-thumb {
 }
 
 body {
-    /* backdrop-filter: blur(10px); */
+    backdrop-filter: blur(20px);
     font-family: "Inter", Arial, sans-serif;
     margin: 0;
     padding: 0;
