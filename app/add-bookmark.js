@@ -44,9 +44,10 @@ saveBtn.addEventListener("click", (e) => {
             }
 
             try {
-                const url = chrome.runtime.getURL('app/dashboard.html');
+                // const url = chrome.runtime.getURL('app/dashboard.html');
                 window.close();
-                window.open(url, 'bookmarks-plus-dashboard');
+                // window.open(url, 'bookmarks-plus-dashboard');
+                openDashboard();
             } catch (navigationError) {
                 console.log("⚠️ Error navigating to the dashboard:", navigationError);
             }
@@ -76,4 +77,23 @@ function cancel_bookmark() {
     } catch (error) {
         console.log("⚠️ Error during cancel confirmation:", error);
     }
+}
+
+let dashboardTabId = null;
+function openDashboard() {
+    const url = chrome.runtime.getURL('app/dashboard.html');
+    chrome.tabs.query({}, (tabs) => {
+        let found = false;
+
+        for (let tab of tabs) {
+            if (tab.url === url) {
+                found = true;
+                chrome.tabs.update(tab.id, { active: true });
+                break;
+            }
+        }
+        if (!found) {
+            chrome.tabs.create({ url: url });
+        }
+    });
 }

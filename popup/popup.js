@@ -16,6 +16,25 @@ document
 document
     .getElementById("dashboard")
     .addEventListener("click", () => {
-        const url = chrome.runtime.getURL('app/dashboard.html');
-        window.open(url, 'bookmarks-plus-dashboard');
+        // const url = chrome.runtime.getURL('app/dashboard.html');
+        // window.open(url, 'bookmarks-plus-dashboard');
+        openDashboard();
     });
+
+function openDashboard() {
+    const url = chrome.runtime.getURL('app/dashboard.html');
+    chrome.tabs.query({}, (tabs) => {
+        let found = false;
+
+        for (let tab of tabs) {
+            if (tab.url === url) {
+                found = true;
+                chrome.tabs.update(tab.id, { active: true });
+                break;
+            }
+        }
+        if (!found) {
+            chrome.tabs.create({ url: url });
+        }
+    });
+}
