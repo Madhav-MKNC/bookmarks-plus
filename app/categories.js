@@ -1,3 +1,8 @@
+const storedBookmarks_temp = JSON.parse(localStorage.getItem('bookmarks')) || [];
+const storedCategories_temp = JSON.parse(localStorage.getItem('bookmarks-categories')) || [];
+const categories_updated_temp = [...new Set([...storedBookmarks.map(bookmark => bookmark.category), ...storedCategories])];
+localStorage.setItem('bookmarks-categories-current', JSON.stringify(categories_updated));
+
 const categories = JSON.parse(localStorage.getItem('bookmarks-categories-current')) || [];
 
 const categoryInput = document.getElementById('category');

@@ -79,7 +79,6 @@ function cancel_bookmark() {
     }
 }
 
-let dashboardTabId = null;
 function openDashboard() {
     const url = chrome.runtime.getURL('app/dashboard.html');
     chrome.tabs.query({}, (tabs) => {
