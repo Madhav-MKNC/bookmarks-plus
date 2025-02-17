@@ -1,4 +1,4 @@
-const categories = JSON.parse(localStorage.getItem('bookmarks-categories')) || [];
+const categories = JSON.parse(localStorage.getItem('bookmarks-categories-current')) || [];
 
 const categoryInput = document.getElementById('category');
 // const dropdownList = document.getElementById('dropdownList');

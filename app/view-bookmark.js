@@ -1,6 +1,7 @@
 const editBtn = document.getElementById("edit-btn");
 const saveBtn = document.getElementById("save-btn");
 const deleteBtn = document.getElementById("delete-btn");
+const dropDownParent = document.getElementById("dropdownListParent");
 const inputs = document.querySelectorAll("input, textarea");
 const heading = document.querySelector("h2");
 const form = document.getElementById("bookmark-form");
@@ -61,6 +62,7 @@ editBtn.addEventListener("click", () => {
         editBtn.classList.add("hidden");
         saveBtn.classList.remove("hidden");
         deleteBtn.classList.remove("hidden");
+        dropDownParent.classList.remove("hidden");
         heading.textContent = "Edit Bookmark";
     } catch (error) {
         console.log("⚠️ Error enabling edit mode:", error);
@@ -77,6 +79,7 @@ saveBtn.addEventListener("click", (e) => {
             saveBtn.classList.add("hidden");
             deleteBtn.classList.add("hidden");
             editBtn.classList.remove("hidden");
+            dropDownParent.classList.add("hidden");
 
             const updatedBookmark = {
                 ...bookmark,

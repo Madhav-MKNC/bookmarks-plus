@@ -47,8 +47,11 @@
                                 id="category"
                                 placeholder="e.g., Work, Personal, Reading"
                                 required
+                                readonly
                             />
-                            <div class="dropdown-list" id="dropdownList"></div>
+                            <div class="dropdown-list-parent hidden" id="dropdownListParent">
+                                <div class="dropdown-list" id="dropdownList"></div>
+                            </div>
                         </div>
 
                         <label for="tags">Tags</label>
