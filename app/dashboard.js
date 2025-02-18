@@ -16,6 +16,13 @@ const bookmarksContainer = document.getElementById("bookmarks-container");
 const searchTermInput = document.getElementById("search-term");
 const categoryFilter = document.getElementById("category-filter");
 
+const badgeContainer = document.querySelector(".bookmark-count-badge");
+
+function updateBadge(count) {
+    badgeContainer.textContent = `Bookmarks Found: ${count}`;
+    badgeContainer.style.display = count > 0 ? "block" : "none";
+}
+
 function renderBookmarks(filteredBookmarks) {
     bookmarksContainer.innerHTML = "";
     filteredBookmarks.forEach((bookmark) => {
@@ -41,6 +48,8 @@ function renderBookmarks(filteredBookmarks) {
             console.log('⚠️ Error rendering bookmark:', error.message);
         }
     });
+
+    updateBadge(filteredBookmarks.length);
 
     const viewButtons = bookmarksContainer.querySelectorAll(".view-btn");
     viewButtons.forEach((button) => {

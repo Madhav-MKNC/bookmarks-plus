@@ -263,3 +263,15 @@ body {
 .view-btn img:hover {
     transform: scale(1.2);
 }
+
+.bookmark-count-badge {
+    color: var(--border-1);
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
